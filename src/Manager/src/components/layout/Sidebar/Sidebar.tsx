@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Container = styled.aside`
   width: 260px;
@@ -17,7 +17,7 @@ const TopSection = styled.div``;
 const Title = styled.h1`
   font-weight: 700;
   font-size: 20px;
-  color: #3b82f6; 
+  color: #3b82f6;
   margin-bottom: 4px;
 `;
 
@@ -34,7 +34,6 @@ const Menu = styled.nav`
 `;
 
 const MenuItem = styled(NavLink)`
-  display: block;
   padding: 12px 16px;
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.muted};
@@ -76,11 +75,10 @@ const StorageBar = styled.div`
   overflow: hidden;
 `;
 
-const StorageFill = styled.div<{ usagePercent: number }>`
+const StorageFill = styled.div`
   height: 100%;
-  width: ${({ usagePercent }) => usagePercent}%;
+  width: 68%;
   background: ${({ theme }) => theme.colors.primary};
-  transition: width 0.3s ease;
 `;
 
 const StorageText = styled.p`
@@ -100,17 +98,14 @@ const CheckinButton = styled.button`
   border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease;
 
   &:hover {
-    background: #2563eb; /* slightly darker blue */
+    background: #2563eb;
   }
 `;
 
 const Sidebar = () => {
-  const storageUsed = 8.2;
-  const storageTotal = 12;
-  const usagePercent = (storageUsed / storageTotal) * 100;
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -121,9 +116,6 @@ const Sidebar = () => {
         <Menu>
           <MenuItem to="/manager/dashboard">Dashboard</MenuItem>
           <MenuItem to="/manager/members">Members</MenuItem>
-          <MenuItem to="/manager/gyms">Gyms</MenuItem>
-          <MenuItem to="/manager/revenue">Revenue</MenuItem>
-          <MenuItem to="/manager/reports">Reports</MenuItem>
           <MenuItem to="/manager/settings">Settings</MenuItem>
         </Menu>
       </TopSection>
@@ -132,14 +124,14 @@ const Sidebar = () => {
         <StorageUsageContainer>
           <StorageLabel>Storage Usage</StorageLabel>
           <StorageBar>
-            <StorageFill usagePercent={usagePercent} />
+            <StorageFill />
           </StorageBar>
-          <StorageText>
-            {storageUsed} GB of {storageTotal} GB used
-          </StorageText>
+          <StorageText>8.2 GB of 12 GB used</StorageText>
         </StorageUsageContainer>
 
-        <CheckinButton>Check-in Member</CheckinButton>
+        <CheckinButton onClick={() => navigate("/manager/members/create")}>
+          Check-in Member
+        </CheckinButton>
       </BottomSection>
     </Container>
   );

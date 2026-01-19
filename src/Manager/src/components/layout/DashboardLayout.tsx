@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
-// import Header from "./Header/Header";  // Bu kerak emas endi
-import Navbar from "./Navbar/Navbar"; // Navbar ni import qildik
+import Navbar from "./Navbar/Navbar"; 
 import styled from "styled-components";
 
 const Wrapper = styled.div`
